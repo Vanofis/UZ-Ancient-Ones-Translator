@@ -17,7 +17,7 @@ internal record DoubleLetterProcessor : IStringProcessor
         { 'g', 'η' },
         { 'h', 'θ' },
         { 'i', 'ι' },
-        { 'j', 'ι' },
+        { 'j', 'й' },
         { 'k', 'λ' },
         { 'l', 'μ' },
         { 'm', 'ν' },
