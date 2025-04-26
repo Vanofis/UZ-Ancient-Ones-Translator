@@ -40,7 +40,7 @@ internal record DoubleLetterProcessor : IStringProcessor
         for (int i = 0; i < inputs.Length; i++)
         {
             var builder = new StringBuilder();
-            var input = inputs[i];
+            string input = inputs[i];
             
             for (int j = 0; j < input.Length;)
             {
@@ -67,7 +67,7 @@ internal record DoubleLetterProcessor : IStringProcessor
 
     private bool TryGetReplacer(char character, out char replacer)
     {
-        if (!_doubleLettersReplacers.TryGetValue(char.ToLower(character), out replacer))
+        if (!_doubleLettersReplacers.TryGetValue(char.ToLowerInvariant(character), out replacer))
         {
             return false;
         }
