@@ -8,4 +8,9 @@ public partial class MainWindowForm : Form
     {
         InitializeComponent();
     }
+
+    private void TranslateButton_Click(object sender, System.EventArgs e)
+    {
+        
+    }
 }
