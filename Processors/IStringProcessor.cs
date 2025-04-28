@@ -2,5 +2,5 @@
 
 internal interface IStringProcessor
 {
-    public void Process(ref string[] inputs);
+    public string Process(string inputs);
 }

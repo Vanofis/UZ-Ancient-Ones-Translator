@@ -17,13 +17,17 @@ public partial class MainWindowForm : Form
 
     private void TranslateButton_Click(object sender, System.EventArgs e)
     {
-        string[] input = InputTextBox.Lines;
+        string[] inputs = InputTextBox.Lines;
 
         foreach (var stringProcessor in _stringProcessors)
         {
-            stringProcessor.Process(ref input);
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                inputs[i] = stringProcessor.Process(inputs[i]);
+            }
+            
         }
         
-        OutputTextBox.Lines = input;
+        OutputTextBox.Lines = inputs;
     }
 }

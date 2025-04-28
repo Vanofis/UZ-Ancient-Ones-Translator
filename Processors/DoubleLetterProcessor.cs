@@ -1,87 +1,33 @@
 ﻿using System;
 using System.Text;
-using System.Collections.Generic;
 
 namespace AncientOnesTranslator.Processors;
 
 internal record DoubleLetterProcessor : IStringProcessor
 {
-    private readonly Dictionary<char, char> _doubleLettersReplacers = new()
+    public string Process(string input)
     {
-        { 'a', 'α' },
-        { 'b', 'β' },
-        { 'c', 'γ' },
-        { 'd', 'δ' },
-        { 'e', 'ε' },
-        { 'f', 'ζ' },
-        { 'g', 'η' },
-        { 'h', 'θ' },
-        { 'i', 'ι' },
-        { 'j', 'й' },
-        { 'k', 'λ' },
-        { 'l', 'μ' },
-        { 'm', 'ν' },
-        { 'n', 'ξ' },
-        { 'o', 'ο' },
-        { 'p', 'π' },
-        { 'q', 'ρ' },
-        { 'r', 'σ' },
-        { 's', 'τ' },
-        { 't', 'υ' },
-        { 'u', 'φ' },
-        { 'v', 'χ' },
-        { 'w', 'ψ' },
-        { 'x', 'ω' },
-        { 'z', 'ζ' },
-    };
-    
-    public void Process(ref string[] inputs)
-    {
-        for (int i = 0; i < inputs.Length; i++)
+        var builder = new StringBuilder();
+        
+        for (int i = 0; i < input.Length;)
         {
-            var builder = new StringBuilder();
-            string input = inputs[i];
-            
-            for (int j = 0; j < input.Length;)
+            if (i + 1 < input.Length && input[i].CompareCharsCaseInsensitive(input[i + 1]))
             {
-                if (j + 1 < input.Length && CompareCharactersCaseless(input[j], input[j + 1]))
+                if (input[i].TryGetDoubledLetter(out char replacer))
                 {
-                    if (TryGetReplacer(input[j], out char newLetter))
-                    {
-                        builder.Append(newLetter);
-                        j += 2;
-                        
-                        continue;
-                    }
-
-                    Console.WriteLine("Warning! Unsupported dobule character detected! Skipping.");
+                    builder.Append(replacer);
+                    i += 2;
+                    
+                    continue;
                 }
 
-                builder.Append(input[j]);
-                j++;
+                Console.WriteLine("Warning! Unsupported dobule character detected! Skipping.");
             }
 
-            inputs[i] = builder.ToString();
+            builder.Append(input[i]);
+            i++;
         }
-    }
-
-    private bool TryGetReplacer(char character, out char replacer)
-    {
-        if (!_doubleLettersReplacers.TryGetValue(char.ToLowerInvariant(character), out replacer))
-        {
-            return false;
-        }
-
-        if (char.IsUpper(character))
-        {
-            replacer = char.ToUpperInvariant(replacer);
-        }
-        
-        return true;
-    }
-
-    private bool CompareCharactersCaseless(char character1, char character2)
-    {
-        return char.ToUpperInvariant(character1) == char.ToUpperInvariant(character2);
+            
+        return builder.ToString();;
     }
 };
