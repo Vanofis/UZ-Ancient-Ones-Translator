@@ -1,4 +1,4 @@
-﻿namespace AncientOnesTranslator.Processors;
+﻿namespace AncientOnesTranslator.Misc;
 
 internal static class CharExtensions
 {

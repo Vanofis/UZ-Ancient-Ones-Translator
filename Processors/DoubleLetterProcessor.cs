@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AncientOnesTranslator.Misc;
 
 namespace AncientOnesTranslator.Processors;
 
